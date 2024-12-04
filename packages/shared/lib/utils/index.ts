@@ -1,1 +1,3 @@
-export * from './shared-types';
+export * from './getFileNameFromURL'
+export * from './isConvertNeeded'
+export * from './shared-types'

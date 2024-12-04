@@ -1,8 +1,9 @@
-import type { Config } from 'tailwindcss/types/config';
+import type { Config } from 'tailwindcss/types/config'
 
 export default {
-  theme: {
-    extend: {},
+  daisyui: {
+    themes: ['luxury'],
+    darkTheme: 'luxury',
   },
-  plugins: [],
-} as Omit<Config, 'content'>;
+  plugins: [require('daisyui')],
+} as Omit<Config, 'content'>

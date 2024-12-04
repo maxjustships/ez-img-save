@@ -1,23 +1,49 @@
-import { useEffect } from 'react';
-import { Button } from '@extension/ui';
-import { useStorage } from '@extension/shared';
-import { exampleThemeStorage } from '@extension/storage';
+import { isConvertNeeded } from '@extension/shared'
+import delay from 'lodash/delay'
+import { useState } from 'react'
+import { downloadFile } from './downloadFile'
+import { getElementCoordinates } from './getElementCoordinates'
+import useLastHoveredImage from './useLastHoveredImage'
+
+const sendConvertDownload = (src: string) => {
+  chrome.runtime.sendMessage({ type: 'fetch-image', url: src }, response => {
+    if (response.success) {
+      downloadFile(response.dataUrl)
+    }
+  })
+}
+
+function getDownloadButtonText(src?: string) {
+  return src && isConvertNeeded(src) ? 'Save as PNG' : 'Save image'
+}
 
 export default function App() {
-  const theme = useStorage(exampleThemeStorage);
+  const { isHovered: isImageHovered, currentImage } = useLastHoveredImage()
+  const coords = currentImage ? getElementCoordinates(currentImage) : null
 
-  useEffect(() => {
-    console.log('content ui loaded');
-  }, []);
+  const [isButtonHovered, setIsButtonHovered] = useState(false)
+
+  if (!coords || !(isButtonHovered || isImageHovered)) return null
+
+  const { top, left, width, height } = coords
 
   return (
-    <div className="flex items-center justify-between gap-2 rounded bg-blue-100 px-2 py-1">
-      <div className="flex gap-1 text-blue-500">
-        Edit <strong className="text-blue-700">pages/content-ui/src/app.tsx</strong> and save to reload.
-      </div>
-      <Button theme={theme} onClick={exampleThemeStorage.toggle}>
-        Toggle Theme
-      </Button>
+    <div
+      className="border-accent pointer-events-none absolute z-[1000] border-2"
+      style={{ top, left, width, height }}
+      onMouseEnter={() => setIsButtonHovered(true)}
+      onMouseLeave={() => delay(() => setIsButtonHovered(false), 200)}>
+      {
+        <button
+          className={`btn btn-sm btn-accent border-radius-none pointer-events-auto m-2`}
+          onClick={
+            currentImage
+              ? () => sendConvertDownload(currentImage.src)
+              : undefined
+          }>
+          {getDownloadButtonText(currentImage?.src)}
+        </button>
+      }
     </div>
-  );
+  )
 }
