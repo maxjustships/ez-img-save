@@ -1,20 +1,27 @@
-import { isConvertNeeded } from '@extension/shared'
+import { clsx } from 'clsx'
 import delay from 'lodash/delay'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { downloadFile } from './downloadFile'
 import { getElementCoordinates } from './getElementCoordinates'
+import Download from './icons/Download'
+import Loading from './icons/Loading'
 import useLastHoveredImage from './useLastHoveredImage'
 
-const sendConvertDownload = (src: string) => {
-  chrome.runtime.sendMessage({ type: 'fetch-image', url: src }, response => {
-    if (response.success) {
-      downloadFile(response.dataUrl)
-    }
-  })
-}
+// Send message to the background script
+function useSendConvertDownload() {
+  const [loading, setLoading] = useState(false)
 
-function getDownloadButtonText(src?: string) {
-  return src && isConvertNeeded(src) ? 'Save as PNG' : 'Save image'
+  const sendConvertDownload = useCallback((src: string) => {
+    setLoading(true)
+    chrome.runtime.sendMessage({ type: 'fetch-image', url: src }, response => {
+      if (response.success) {
+        downloadFile(response.dataUrl)
+      }
+      setLoading(false)
+    })
+  }, [])
+
+  return { loading, sendConvertDownload }
 }
 
 export default function App() {
@@ -23,25 +30,36 @@ export default function App() {
 
   const [isButtonHovered, setIsButtonHovered] = useState(false)
 
+  const { loading, sendConvertDownload } = useSendConvertDownload()
+
   if (!coords || !(isButtonHovered || isImageHovered)) return null
 
   const { top, left, width, height } = coords
 
   return (
     <div
-      className="border-accent pointer-events-none absolute z-[1000] border-2"
+      className={clsx(`pointer-events-none absolute z-[10000] border-2`, {
+        'border-neutral': loading,
+        'border-accent': !loading,
+      })}
       style={{ top, left, width, height }}
       onMouseEnter={() => setIsButtonHovered(true)}
       onMouseLeave={() => delay(() => setIsButtonHovered(false), 200)}>
       {
         <button
-          className={`btn btn-sm btn-accent border-radius-none pointer-events-auto m-2`}
+          className={clsx(
+            `btn btn-sm border-radius-none pointer-events-auto m-2 opacity-50 hover:opacity-100`,
+            {
+              'btn-accent': !loading,
+              'btn-neutral': loading,
+            },
+          )}
           onClick={
-            currentImage
+            currentImage && !loading
               ? () => sendConvertDownload(currentImage.src)
               : undefined
           }>
-          {getDownloadButtonText(currentImage?.src)}
+          {loading ? <Loading /> : <Download />}
         </button>
       }
     </div>
