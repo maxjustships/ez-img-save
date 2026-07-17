@@ -18,7 +18,7 @@ jobs:
     environment: chrome-web-store
     steps:
       - name: Check out release
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.release.tag_name || github.ref }}
 
