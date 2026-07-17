@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EZ IMG SAVE settings</title>
+    <link rel="stylesheet" href="./popup.css" />
+  </head>
+  <body>
+    <main class="panel" aria-labelledby="extension-name">
+      <header class="brand">
+        <img class="brand__icon" src="/icons/icon-48.png" alt="" width="34" height="34" />
+        <div>
+          <h1 id="extension-name">EZ IMG SAVE</h1>
+          <p>One click. Your format.</p>
+        </div>
+        <span class="version" id="version" aria-label="Extension version"></span>
+      </header>
+
+      <section class="setting-row" aria-labelledby="visibility-title">
+        <div>
+          <h2 id="visibility-title">Show save buttons</h2>
+          <p>Reveal a download button when you point at an image.</p>
+        </div>
+        <label class="switch">
+          <input id="enabled" type="checkbox" />
+          <span class="switch__track" aria-hidden="true"><span class="switch__thumb"></span></span>
+          <span class="visually-hidden">Show save buttons</span>
+        </label>
+      </section>
+
+      <fieldset class="formats">
+        <legend>Save images as</legend>
+        <div class="format-grid">
+          <label class="format-card">
+            <input type="radio" name="format" value="original" />
+            <span class="format-card__code">ORIG</span>
+            <span class="format-card__name">Original</span>
+            <span class="format-card__detail">Keep source</span>
+          </label>
+          <label class="format-card">
+            <input type="radio" name="format" value="png" />
+            <span class="format-card__code">PNG</span>
+            <span class="format-card__name">PNG</span>
+            <span class="format-card__detail">Lossless</span>
+          </label>
+          <label class="format-card">
+            <input type="radio" name="format" value="jpeg" />
+            <span class="format-card__code">JPG</span>
+            <span class="format-card__name">JPEG</span>
+            <span class="format-card__detail">Smaller photos</span>
+          </label>
+          <label class="format-card">
+            <input type="radio" name="format" value="webp" />
+            <span class="format-card__code">WEBP</span>
+            <span class="format-card__name">WebP</span>
+            <span class="format-card__detail">Modern + compact</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <section class="setting-row setting-row--secondary" aria-labelledby="vector-title">
+        <div>
+          <h2 id="vector-title">Preserve SVG/vector images</h2>
+          <p>Save SVG files unchanged instead of rasterizing them.</p>
+        </div>
+        <label class="switch">
+          <input id="preserve-vector-graphics" type="checkbox" />
+          <span class="switch__track" aria-hidden="true"><span class="switch__thumb"></span></span>
+          <span class="visually-hidden">Preserve SVG and vector images</span>
+        </label>
+      </section>
+
+      <footer class="footer">
+        <p class="status" id="status" role="status" aria-live="polite">
+          <span class="status__dot" aria-hidden="true"></span>
+          <span id="status-text">Loading settings…</span>
+        </p>
+        <p class="privacy">Images stay on your device.</p>
+      </footer>
+    </main>
+    <script type="module" src="./popup.ts"></script>
+  </body>
+</html>

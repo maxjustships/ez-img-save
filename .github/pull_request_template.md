@@ -1,23 +1,15 @@
-<!-- Describe what this PR is for in the title. -->
+## What changed
 
-> `*` Please fill in the required items.
+<!-- Describe the user-visible behavior and why it belongs in the extension's single purpose. -->
 
-## Priority*
+## Verification
 
-- [ ] High: This PR needs to be merged first for other tasks.
-- [x] Middle: This PR should be merged quickly to prevent conflicts due to common changes. (default)
-- [ ] Low: This PR does not affect other tasks, so it can be merged later.
+- [ ] `npm run check`
+- [ ] Loaded the production `dist` build in Chrome
+- [ ] Tested both a large and a small image when UI behavior changed
+- [ ] Added or updated screenshots for visual changes
+- [ ] Confirmed no new permission or data-handling behavior, or explained it below
 
-## Purpose of the PR*
-<!-- Describe the purpose of the PR. -->
+## Permission or privacy impact
 
-## Changes*
-
-
-## How to check the feature
-<!-- Describe how to check the feature in detail -->
-<!-- If there are any changes to the screen, please attach a screenshot for easy identification. -->
-
-
-## Reference
-<!-- Any helpful information for understanding the PR. -->
+None.

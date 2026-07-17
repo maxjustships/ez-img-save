@@ -1,0 +1,24 @@
+name: Feature request
+description: Suggest a focused improvement to image saving.
+title: 'feat: '
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What image-saving task is difficult today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Describe the smallest user-visible change that would solve it.
+    validations:
+      required: true
+  - type: textarea
+    id: permissions
+    attributes:
+      label: Permission or data impact
+      description: Would this require a new browser permission, external service, or additional data handling?

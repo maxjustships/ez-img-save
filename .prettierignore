@@ -1,11 +1,6 @@
-dist
-node_modules
-.gitignore
-.github
-.eslintignore
-.husky
-.nvmrc
-.prettierignore
-LICENSE
-*.md
-pnpm-lock.yaml
+node_modules/
+dist/
+dist-zip/
+coverage/
+.vite/
+output/

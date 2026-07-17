@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EZ IMG SAVE test gallery</title>
+    <style>
+      :root {
+        color: #172033;
+        background: #eef1f7;
+        font-family: Aptos, 'Segoe UI', sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 52px 32px 100px;
+      }
+
+      h1 {
+        margin: 0;
+        font:
+          650 34px/1.1 Bahnschrift,
+          sans-serif;
+        letter-spacing: 0.02em;
+      }
+
+      .intro {
+        max-width: 650px;
+        margin: 10px 0 34px;
+        color: #64708a;
+        line-height: 1.55;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+        gap: 22px;
+      }
+
+      .card {
+        padding: 18px;
+        border: 1px solid #d9deea;
+        border-radius: 18px;
+        background: #ffffff;
+        box-shadow: 0 12px 35px rgba(37, 48, 78, 0.08);
+      }
+
+      .card h2 {
+        margin: 0 0 13px;
+        font-size: 14px;
+      }
+
+      .card p {
+        margin: 12px 0 0;
+        color: #798298;
+        font-size: 12px;
+      }
+
+      .large {
+        width: 100%;
+        border-radius: 12px;
+      }
+
+      .small-stage {
+        display: flex;
+        min-height: 220px;
+        align-items: center;
+        justify-content: center;
+        gap: 56px;
+        border-radius: 12px;
+        background:
+          linear-gradient(45deg, #f2f4f8 25%, transparent 25%) 0 0 / 18px 18px,
+          linear-gradient(-45deg, #f2f4f8 25%, transparent 25%) 0 0 / 18px 18px,
+          #ffffff;
+      }
+
+      .tiny {
+        width: 48px;
+        height: 48px;
+      }
+
+      .wide {
+        width: 120px;
+        height: 24px;
+      }
+
+      @media (max-width: 800px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Image placement test gallery</h1>
+    <p class="intro">
+      Hover each image to verify overlay and side placement. Use the extension popup to switch
+      between Original, PNG, JPEG, and WebP before downloading.
+    </p>
+
+    <div class="grid">
+      <article class="card">
+        <h2>Large image · button overlays the top-right corner</h2>
+        <img class="large" src="./large.svg" alt="Blue mountain landscape" />
+        <p>Expected: the button stays inside the image with an 8 px inset.</p>
+      </article>
+
+      <article class="card">
+        <h2>Small images · button moves beside the image</h2>
+        <div class="small-stage">
+          <img class="tiny" src="./tiny.svg" alt="Tiny coral tile" />
+          <img class="wide" src="./wide.svg" alt="Thin green banner" />
+        </div>
+        <p>Expected: both controls prefer the right side and never cover the image.</p>
+      </article>
+    </div>
+  </body>
+</html>
